@@ -48,7 +48,12 @@ button {
 }
 
 .ambassador {
-  color: rgb(73, 189, 28);
+  font-weight: 600;
+  color: rgb(48, 150, 8);
+}
+
+.total {
+  font-size: 2em;
 }
 
 #console {

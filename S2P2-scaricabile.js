@@ -61,7 +61,7 @@ function eCommerce(user) {
 
   console.log(`Il carrello di ${user.name} è ${shoppingCart}`)
 
-  carrelloContainer.innerHTML = "Totale carrello: " + shoppingCart
+  carrelloContainer.innerHTML = "<b>Totale carrello:</b> " + shoppingCart
 
   if (user.isAmbassador) {
     let sconto = (shoppingCart * ambassadorDiscount) / 100
@@ -73,14 +73,14 @@ function eCommerce(user) {
     scontoContainer.innerHTML = `Ambassador, ${ambassadorDiscount}% di sconto`
   }
 
-  subtotaleContainer.innerHTML = `Subtotale: ${shoppingCart}`
+  subtotaleContainer.innerHTML = `<b>Subtotale</b>: ${shoppingCart}`
 
   if (shoppingCart <= freeShippingOver) {
     shoppingCart += shippingCost
     console.log(
       `Il carrello non supera i ${freeShippingOver}, sono stati aggiunti ${shippingCost} di spedizione`
     )
-    spedizioneContainer.innerHTML = `Spedizione: ${shippingCost}`
+    spedizioneContainer.innerHTML = `<b>Spedizione</b>: ${shippingCost}`
   } else {
     console.log(
       `Il carrello supera i ${freeShippingOver}, la spedizione è gratuita`
@@ -90,7 +90,7 @@ function eCommerce(user) {
 
   console.log(`Il totale da pagare per ${user.name} è ${shoppingCart}`)
 
-  totaleContainer.innerHTML = `Totale: ${shoppingCart}`
+  totaleContainer.innerHTML = `<b>Totale</b>: ${shoppingCart}`
 }
 
 // eCommerce(marco)
