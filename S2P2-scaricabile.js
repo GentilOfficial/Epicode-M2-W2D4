@@ -39,40 +39,63 @@ const shippingCost = 50
 const freeShippingOver = 100
 const ambassadorDiscount = 30
 
-let utenteCheEffettuaLAcquisto = marco
+function eCommerce(user) {
+  document.getElementsByClassName("output")[0].style.display = "block"
+  const carrelloContainer = document.getElementById("shoppingCart")
+  const scontoContainer = document.getElementById("sconto")
+  const subtotaleContainer = document.getElementById("subtotale")
+  const spedizioneContainer = document.getElementById("spedizione")
+  const totaleContainer = document.getElementById("totale")
 
-let shoppingCart = 0
+  carrelloContainer.innerHTML = ""
+  scontoContainer.innerHTML = ""
+  subtotaleContainer.innerHTML = ""
+  spedizioneContainer.innerHTML = ""
+  totaleContainer.innerHTML = ""
 
-for (let price of prices) {
-  shoppingCart += price
+  let shoppingCart = 0
+
+  for (let price of prices) {
+    shoppingCart += price
+  }
+
+  console.log(`Il carrello di ${user.name} è ${shoppingCart}`)
+
+  carrelloContainer.innerHTML = "Totale carrello: " + shoppingCart
+
+  if (user.isAmbassador) {
+    let sconto = (shoppingCart * ambassadorDiscount) / 100
+    shoppingCart = shoppingCart - sconto
+    console.log(
+      `${user.name} è ambassador, il carrello è scontato del ${ambassadorDiscount}%`
+    )
+    console.log(`Il carrello è diventato di ${shoppingCart}`)
+    scontoContainer.innerHTML = `Ambassador, ${ambassadorDiscount}% di sconto`
+  }
+
+  subtotaleContainer.innerHTML = `Subtotale: ${shoppingCart}`
+
+  if (shoppingCart <= freeShippingOver) {
+    shoppingCart += shippingCost
+    console.log(
+      `Il carrello non supera i ${freeShippingOver}, sono stati aggiunti ${shippingCost} di spedizione`
+    )
+    spedizioneContainer.innerHTML = `Spedizione: ${shippingCost}`
+  } else {
+    console.log(
+      `Il carrello supera i ${freeShippingOver}, la spedizione è gratuita`
+    )
+    spedizioneContainer.innerHTML = `Spedizione: gratuita`
+  }
+
+  console.log(`Il totale da pagare per ${user.name} è ${shoppingCart}`)
+
+  totaleContainer.innerHTML = `Totale: ${shoppingCart}`
 }
 
-console.log(
-  `Il carrello di ${utenteCheEffettuaLAcquisto.name} è ${shoppingCart}`
-)
+// eCommerce(marco)
 
-if (utenteCheEffettuaLAcquisto.isAmbassador) {
-  shoppingCart -= (shoppingCart * ambassadorDiscount) / 100
-  console.log(
-    `${utenteCheEffettuaLAcquisto.name} è ambassador, il carrello è scontato del ${ambassadorDiscount}%`
-  )
-  console.log(`Il carrello è diventato di ${shoppingCart}`)
-}
-
-if (shoppingCart <= freeShippingOver) {
-  shoppingCart += shippingCost
-  console.log(
-    `Il carrello non supera i ${freeShippingOver}, sono stati aggiunti ${shippingCost} di spedizione`
-  )
-} else {
-  console.log(
-    `Il carrello supera i ${freeShippingOver}, la spedizione è gratuita`
-  )
-}
-
-console.log(
-  `Il totale da pagare per ${utenteCheEffettuaLAcquisto.name} è ${shoppingCart}`
-)
+const consoleContainer = document.getElementById("console")
 
 let users = []
 
@@ -81,11 +104,11 @@ users.push(paul)
 users.push(amy)
 
 for (let user of users) {
-  console.log(
-    `${user.name} ${user.lastName} ${
-      user.isAmbassador ? "è" : "non è"
-    } un ambassador`
-  )
+  let stampa = `${user.name} ${user.lastName} ${
+    user.isAmbassador ? "è" : "non è"
+  } un ambassador`
+  console.log(stampa)
+  consoleContainer.innerHTML += `<p>${stampa}</p>`
 }
 
 let ambassadors = []
@@ -97,3 +120,7 @@ for (let user of users) {
 }
 
 console.log(ambassadors)
+
+for (let ambassador of ambassadors) {
+  consoleContainer.innerHTML += `<p>${ambassador.name} ${ambassador.lastName}</p>`
+}
